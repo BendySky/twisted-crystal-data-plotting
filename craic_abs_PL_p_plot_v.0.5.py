@@ -6,16 +6,16 @@ import pandas as pd
 import numpy as np
 
 
-mainpath = ''
+mainpath = '/Volumes/T7/Research/liquid_crystals/7ocb/craic/7OCB_Oligothiophene_EP_34nmol/Band_Dep_Abs/polarized_undoped'
 
 
 ## comment this out if baseline correction was not used
-band1_bl = bands(mainpath, band_no=1, bl_corr='true')
-band2_bl = bands(mainpath, band_no=2, bl_corr='true')
+band1_bl = bands(mainpath, band_no=1, bl_corr='false')
+band2_bl = bands(mainpath, band_no=2, bl_corr='false')
 
-band1 = bands(mainpath, band_no=1, bl_corr='false')
-band2 = bands(mainpath, band_no=2, bl_corr='false')
-print(band1)
+band1 = bands(mainpath, band_no=1, bl_corr='true')
+band2 = bands(mainpath, band_no=2, bl_corr='true')
+
 band1_df = []
 band2_df = []
 for i in range(len(band1)):
@@ -31,6 +31,8 @@ if 'band1_bl' and 'band2_bl' in globals():
     for i in range(len(band1_bl)):
         band1_bl_df.append(pd.read_csv(band1_bl[i], skiprows=9, delimiter=',', header=None, engine='python'))
         band2_bl_df.append(pd.read_csv(band2_bl[i], skiprows=9, delimiter=',', header=None, engine='python'))
+print(np.shape(band1_df))
+
 
 fig1, ax1 = plt.subplots(figsize=(7,7))
 fig2, ax2 = plt.subplots(figsize=(7,7))
@@ -54,13 +56,13 @@ for k in range(len(band1_df)):
 
 ax1.legend(fontsize=12, loc='upper right', bbox_to_anchor=(1, 1), frameon=False)
 ax2.legend(fontsize=12, loc='upper right', bbox_to_anchor=(1, 1), frameon=False)
-ax3.legend(fontsize=12, loc='upper right', bbox_to_anchor=(1, 1), frameon=False)
-ax4.legend(fontsize=12, loc='upper right', bbox_to_anchor=(1, 1), frameon=False)
+#ax3.legend(fontsize=12, loc='upper right', bbox_to_anchor=(1, 1), frameon=False)
+#ax4.legend(fontsize=12, loc='upper right', bbox_to_anchor=(1, 1), frameon=False)
 
 fig1.savefig(f'{mainpath}/band_dep_abs_band1_v.0.5.png', dpi=300, bbox_inches='tight', transparent=True)
 fig2.savefig(f'{mainpath}/band_dep_abs_band2_v.0.5.png', dpi=300, bbox_inches='tight', transparent=True)
-fig3.savefig(f'{mainpath}/band_dep_abs_band1_bl_v.0.5.png', dpi=300, bbox_inches='tight', transparent=True)
-fig4.savefig(f'{mainpath}/band_dep_abs_band2_bl_v.0.5.png', dpi=300, bbox_inches='tight', transparent=True)
+#fig3.savefig(f'{mainpath}/band_dep_abs_band1_bl_v.0.5.png', dpi=300, bbox_inches='tight', transparent=True)
+#fig4.savefig(f'{mainpath}/band_dep_abs_band2_bl_v.0.5.png', dpi=300, bbox_inches='tight', transparent=True)
 
 
 b1 = []
@@ -72,36 +74,36 @@ angle = [radians(a) for a in r1]
 
 b1_peak = max_abs(band1_df)
 b2_peak = max_abs(band2_df)
-b1_bl_peak = max_abs(band1_bl_df)
-b2_bl_peak = max_abs(band2_bl_df)
+#b1_bl_peak = max_abs(band1_bl_df)
+#b2_bl_peak = max_abs(band2_bl_df)
 
 
 for i in range(len(b1_peak)):
     b1.append(b1_peak[i][1])
     b2.append(b2_peak[i][1])
-    b1_bl.append(b1_bl_peak[i][1])
-    b2_bl.append(b2_bl_peak[i][1])
+    #b1_bl.append(b1_bl_peak[i][1])
+    #b2_bl.append(b2_bl_peak[i][1])
 
 fig5, pol1 = plt.subplots(subplot_kw={'projection': 'polar'}, figsize=(7,7))
 fig6, pol2 = plt.subplots(subplot_kw={'projection': 'polar'}, figsize=(7,7))
-fig7, pol1_bl = plt.subplots(subplot_kw={'projection': 'polar'}, figsize=(7,7))
-fig8, pol2_bl = plt.subplots(subplot_kw={'projection': 'polar'}, figsize=(7,7))
+#fig7, pol1_bl = plt.subplots(subplot_kw={'projection': 'polar'}, figsize=(7,7))
+#fig8, pol2_bl = plt.subplots(subplot_kw={'projection': 'polar'}, figsize=(7,7))
 
 pol_plot_params(pol1, ylim=[0, 1.6])
 pol_plot_params(pol2, ylim=[0, 1.6])
-pol_plot_params(pol1_bl)
-pol_plot_params(pol2_bl)
+#pol_plot_params(pol1_bl)
+#pol_plot_params(pol2_bl)
 
 
 pol1.scatter(angle, b1, c=colors, alpha=0.75, s=200)
 pol2.scatter(angle, b2, c=colors, alpha=0.75, s=200)
-pol1_bl.scatter(angle, b1, c=colors, alpha=0.75, s=200)
-pol2_bl.scatter(angle, b2_bl, c=colors, alpha=0.75, s=200)
+#pol1_bl.scatter(angle, b1, c=colors, alpha=0.75, s=200)
+#pol2_bl.scatter(angle, b2_bl, c=colors, alpha=0.75, s=200)
 
 
 fig5.savefig(f'{mainpath}/pol_plot_band1_v.0.5.png', dpi=300, bbox_inches='tight', transparent=True)
 fig6.savefig(f'{mainpath}/pol_plot_band2_v.0.5.png', dpi=300, bbox_inches='tight', transparent=True)
-fig7.savefig(f'{mainpath}/pol_plot_band1_bl_v.0.5.png', dpi=300, bbox_inches='tight', transparent=True)
-fig8.savefig(f'{mainpath}/pol_plot_band2_bl_v.0.5.png', dpi=300, bbox_inches='tight', transparent=True)
+#fig7.savefig(f'{mainpath}/pol_plot_band1_bl_v.0.5.png', dpi=300, bbox_inches='tight', transparent=True)
+f#ig8.savefig(f'{mainpath}/pol_plot_band2_bl_v.0.5.png', dpi=300, bbox_inches='tight', transparent=True)
 
 #plt.show()

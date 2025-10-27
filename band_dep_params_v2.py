@@ -45,8 +45,8 @@ abs_raw = np.arange(0, 1.7, 0.2)
 abs_bl = np.arange(0, 1.1, 0.2)
 
 
-def subplot_params(axs, ylim=[0, 1.0], abs_val=abs_bl):
-    axs.set_xlim([370, 800])
+def subplot_params(axs, ylim=[0, 1.6], abs_val=abs_bl):
+    axs.set_xlim([390, 800])
     axs.set_ylim(ylim)
     axs.set_xlabel("Wavelength (nm)")
     axs.set_ylabel("Absorbance")
@@ -82,7 +82,7 @@ def max_abs(band_df):
     return band_peaks
 
 
-def pol_plot_params(ax2, ylim=[0, 1.0]):
+def pol_plot_params(ax2, ylim=[0, 1.6]):
     ax2.set_thetamin(0)
     ax2.set_thetamax(90)
     ax2.set_ylim(ylim)
